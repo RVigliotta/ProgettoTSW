@@ -2,13 +2,12 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Ordine implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private Date data;
+	private String data;
 	private double totale;
 	private int userId;
 	private int stato;
@@ -16,7 +15,7 @@ public class Ordine implements Serializable {
 	private int idIndirizzo;
 	private ArrayList<SingoloOrdine> singoli = new ArrayList<>();
 
-	public Ordine(int id, Date data, double totale, int userId, int stato, int spedizione, int idIndirizzo) {
+	public Ordine(int id, String data, double totale, int userId, int stato, int spedizione, int idIndirizzo) {
 		super();
 		this.id = id;
 		this.data = data;
@@ -35,11 +34,11 @@ public class Ordine implements Serializable {
 		this.id = id;
 	}
 
-	public Date getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 
