@@ -12,7 +12,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="./Scripts/IndexScript.js"></script>
 <meta charset="ISO-8859-1">
-<title>yourPCBuddy</title>
+<title>BlackWhite</title>
 </head>
 <body>
 <% if (session.getAttribute("username") != null) { %>
@@ -44,7 +44,7 @@
   <h2>Prodotti</h2>
 <% if (products != null && !products.isEmpty()) { %>
     <% for (ProductBean bean : products) { %>
-        <img src="./Images/<%= bean.getImage() %>" alt="Immagine" width="100" />
+        <img src="http://drive.google.com/uc?export=view&id=<%= bean.getImage() %>" alt="Immagine" width="100" />
         <p><%=bean.getName()%></p>
         <p><%= String.format("%.2f", bean.getPrice()) %></p>
         <form action="CartServlet" method="POST" class="IndexProduct">

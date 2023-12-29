@@ -39,7 +39,7 @@
             </tr>
             <c:forEach var="product" items="${order.products}">
                 <tr>
-					<td><img src="./Images/${product.image}"  width="80" height="80"></td>               
+					<td><img src="http://drive.google.com/uc?export=view&id=${product.image}"  width="80" height="80"></td>               
 				    <td>${product.name}</td>
                     <td>${product.quantity}</td>
                     

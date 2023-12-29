@@ -42,7 +42,7 @@ User user = (User) request.getSession().getAttribute("user");
             %>
   
             <tr>
-                <td><img src="./Images/<%= beanOrder.getImage() %>" alt="Immagine" width="100" /></td>
+                <td><img src="http://drive.google.com/uc?export=view&id=<%= beanOrder.getImage() %>" alt="Immagine" width="100" /></td>
                 <td><%=beanOrder.getName()%></td>
                 <td><%= String.format(Locale.US, "%.2f", beanOrder.getPrice()) %></td>
                 <td>
