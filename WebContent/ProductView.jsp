@@ -47,7 +47,7 @@
 				Iterator<?> it = products.iterator();
 				while (it.hasNext()) {
 					ProductBean bean = (ProductBean) it.next();
-					String imagePath = "http://drive.google.com/uc?export=view&id=" + bean.getImage();
+					String imagePath = "./Images/products/" + bean.getImage(); //?
 				
 		%>
 		<tr>
@@ -55,7 +55,7 @@
 			<td><%=bean.getName()%></td>
 			<td><%=bean.getDescription()%></td>
 			<td><%=bean.getCategoriaID()%></td>
-			<td><img src="http://drive.google.com/uc?export=view&id=<%=bean.getImage()%>" width="100"></td>
+			<td><img src="<%=imagePath%>" width="100"></td>
 			<td>
 				<form action="product" method="post">
            			<input type="hidden" name="driver" value="drivermanager">
@@ -111,7 +111,7 @@
 		<tr>
 			<td><%=product.getCode()%></td>
 			<td><%=product.getName()%></td>
-			<td><img src="http://drive.google.com/uc?export=view&id=<%=product.getImage()%>" width="100"></td>
+			<td><img src="./Images/products/<%=product.getImage()%>" width="100"></td>
 			<td><%=product.getDescription()%></td>
 			<td><%= String.format("%.2f", product.getPrice()) %></td>
 			<td><%=product.getQuantity()%></td>
@@ -144,8 +144,8 @@
 			<label for="id">CodiceProdotto:</label><br> 
 		<input name="id" type="number" min="1" value="1" required><br>
 		
-		<label for="image">Codice Immagine:</label><br>
-  		<input type="text" name="image" value="<%=existingProduct.getImage() %>" required><br>
+		<label for="image">Immagine:</label><br>
+  		<input type="file" name="image" accept="image/*"><br>
         
         <input type="submit" value="Aggiorna"><input type="reset" value="Reset"><input type="submit" name="action "value="Annulla"> 
     </form>
@@ -174,8 +174,8 @@
 		<input name="id" type="number" min="1" value="1" required><br>
 		
 		
-		<label for="image">codice immagine:</label><br>
-  		<input type="text" name="image" value="inserisci ID di GoogleDrive" required><br>
+		<label for="image">Immagine:</label><br>
+  		<input type="file" name="image" accept="image/*"><br>
   
 		<input type="submit" value="Aggiungi"><input type="reset" value="Reset"> 
 	</form>

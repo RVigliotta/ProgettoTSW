@@ -63,7 +63,7 @@
 				<% for (ProductBean bean : products) { %>
 				<div class="product-item">
 					<img
-						src="http://drive.google.com/uc?export=view&id=<%= bean.getImage() %>"
+						src="<%=request.getContextPath()%>/Images/products/<%= bean.getImage() %>"
 						alt="Immagine" width="100" />
 					<p><%= bean.getName() %></p>
 					<p><%= String.format("%.2f", bean.getPrice()) %></p>
@@ -76,6 +76,7 @@
 							value="1"> <input type="submit"
 							value="Aggiungi al carrello">
 					</form>
+					<p>Disponibili: <%=bean.getQuantity() %></p>
 					<% } else { %>
 					<p class="esaurito">Prodotto esaurito</p>
 					<% } %>

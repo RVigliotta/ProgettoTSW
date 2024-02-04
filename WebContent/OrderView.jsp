@@ -34,7 +34,7 @@ User user = (User) request.getSession().getAttribute("user");
             <th>Immagine</th>
             <th>Nome</th>
             <th>Prezzo</th>
-            <th>Quantità</th>
+            <th>Quantitï¿½</th>
             
         </tr>
         <% List<ProductBean> prodOrder = cart.getProducts(); 
@@ -42,7 +42,7 @@ User user = (User) request.getSession().getAttribute("user");
             %>
   
             <tr>
-                <td><img src="http://drive.google.com/uc?export=view&id=<%= beanOrder.getImage() %>" alt="Immagine" width="100" /></td>
+                <td><img src="./Images/products/<%= beanOrder.getImage() %>" alt="Immagine" width="100" /></td>
                 <td><%=beanOrder.getName()%></td>
                 <td><%= String.format(Locale.US, "%.2f", beanOrder.getPrice()) %></td>
                 <td>

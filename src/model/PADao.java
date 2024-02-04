@@ -9,5 +9,7 @@ public interface PADao {
 	
 	public void ChangeEmail(int UID, String Email) throws SQLException;
 	
+	public boolean UserCheck(int id, String tab) throws SQLException;
+	
 	
 }

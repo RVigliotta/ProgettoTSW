@@ -58,11 +58,7 @@ public class Login extends HttpServlet {
                     session.setAttribute("username", username);
                     User user = paDao.RetrieveUserData(userId);
                     session.setAttribute("user", user);
-                    //controllo admin da cambiare
-                    if(userId==1) {
-                    	request.getRequestDispatcher("./product").forward(request, response);
-                    	return;
-                    }
+                 
                  // Dopo che l'utente ha effettuato il login con successo
 
                     // Salva il carrello non autenticato nel database

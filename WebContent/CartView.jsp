@@ -55,7 +55,7 @@
             %>
   
             <tr>
-                <td><img src="http://drive.google.com/uc?export=view&id=<%= beancart.getImage() %>" alt="Immagine" width="100" /></td>
+                <td><img src="./Images/products/<%= beancart.getImage() %>" alt="Immagine" width="100" /></td>
                 <td><%=beancart.getName()%></td>
                 <td><%= String.format(Locale.US, "%.2f", beancart.getPrice()) %></td>
                 <td>

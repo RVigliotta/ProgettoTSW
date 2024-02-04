@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*, javax.servlet.jsp.tagext.TagExtraInfo, model.Order, model.ProductBean" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*, javax.servlet.jsp.tagext.TagExtraInfo, model.Order, model.ProductBean, model.OrderDao, model.OrderDaoDataSource" %>
+<%@ page import="java.util.Collection" %>
+<%@ page import="javax.sql.DataSource" %>
 
 
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
@@ -27,34 +29,39 @@
 </div>
     <h1>Elenco Ordini</h1>
     
-    <c:forEach var="order" items="${orders}">
-        <h2>Data e Ora: ${order.dateTime}</h2>
+
+    <% 
+    Integer i= (Integer)session.getAttribute("userId");
+    OrderDao ord = null;
+	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+	ord = new OrderDaoDataSource(ds);
+	Collection<Order> orders= ord.DoRetrieveOrders(i);
+	    
+    for (Order bean : orders) { %>
+        <h2>Data e Ora: <%= bean.getDateTime() %> </h2>
         <table border ="1">
             <tr>
-            	<th></th>
-                <th>Nome Prodotto</th>
-                <th>Quantità</th>
+                
+                <th>Stato: <%= bean.getState()%></th>
                 
                 <!-- Altre colonne, se necessario -->
             </tr>
-            <c:forEach var="product" items="${order.products}">
+          <%  for (ProductBean p : bean.products){ %>
                 <tr>
-					<td><img src="http://drive.google.com/uc?export=view&id=${product.image}"  width="80" height="80"></td>               
-				    <td>${product.name}</td>
-                    <td>${product.quantity}</td>
+					<td> <img src="./Images/products/<%= p.getImage() %>" alt="Immagine" width="100" /></td>               
+				    <td><%=p.getName() %></td>
+                    <td>Quantità: <%=p.getQuantity() %></td>
+                    <td>Prezzo: <%=p.getPrice() %></td>
                     
                     
-                    <!-- Altre colonne, se necessario -->
                 </tr>
                 
-            </c:forEach>
+            <% } %>
             <tr>
-            <th>Totale</th>
-                <td colspan="2">
-				<fmt:formatNumber value="${order.totalPrice}" type="number" minFractionDigits="2" maxFractionDigits="2" />          
-				</td>
+            <th>Prezzo Totale: <%= bean.getTotalPrice()%> </th>
+            </td>
 				  </tr>
         </table>
-    </c:forEach>
+    <% } %>
 </body>
 </html>

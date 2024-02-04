@@ -82,7 +82,7 @@ public class PADaoDataSource implements PADao{
 	        if (resultSet.next()) {
 	        	
 	            // L'indirizzo è gia presente, quindi viene cambiato
-	            preparedStatement.close(); // Chiudi la query precedente
+	        	preparedStatement.close(); // Chiudi la query precedente
 
 	            preparedStatement = connection.prepareStatement(updateSQL);
 	            preparedStatement.setString(1, Address);
@@ -122,6 +122,36 @@ public class PADaoDataSource implements PADao{
 	    }
 	}
 
+	
+	public boolean UserCheck(int id, String tab) throws SQLException  {
+		Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    String chkOrd = "SELECT * FROM "+ tab +" where Utente_id ="+ id+";";
+	    
+		try {
+			  connection = ds.getConnection();
+		        connection.setAutoCommit(false);
+	    	
+	    	PreparedStatement s = connection.prepareStatement(chkOrd);
+	    	ResultSet r=s.executeQuery();
+	    	if(r!=null)
+	    		return true;
+	    	else
+	    		return false;
+	    		
+			
+		
+			
+        	
+        	
+			}catch(SQLException e) {
+	            e.printStackTrace();
+	            return false;
+	        }
+		
+	}
+	
+	
 	@Override
 	public void ChangeEmail(int UID, String Email) throws SQLException {
 		// TODO Auto-generated method stub

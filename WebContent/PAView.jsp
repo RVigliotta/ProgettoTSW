@@ -1,5 +1,7 @@
  
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" import="java.util.*, model.User" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" import="java.util.*, model.*" %>
+<%@ page import="java.util.Collection" %>
+<%@ page import="javax.sql.DataSource" %>
 <%  
     User user = (User) request.getAttribute("user");
 //BIsogna comunque un controllo per vedre se l'utente esiste in sessione ?
@@ -18,6 +20,31 @@
 	<form action="CartServlet" method="post">
 		<input type="submit" value="carrello">
 	</form>
+	
+	
+	<%		PADao p = null;
+	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+	p = new PADaoDataSource(ds);
+	
+	Integer i= (Integer)session.getAttribute("userId");
+	
+	boolean b1 = p.UserCheck(i.intValue(), "ecommerce.gestorecatalogo");
+	boolean b2= p.UserCheck(i.intValue(), "ecommerce.gestoreordini");
+	//rifare con attribute nella servlet?
+	//utente non deve vedre con f12 il nome delle tabelle
+ if (b1 ==true||i.intValue()==1) { %>
+    <form action="ProductView.jsp" method="POST">
+        <input type="submit" value="Pagina Gestore Catalogo">
+    </form>
+
+<% }if (b2== true||i.intValue()==1) { %>
+<form action="OrderCTRL.jsp" method="POST">
+<input type="submit" value="Pagina Gestore Ordini">
+</form>
+
+<% } %>
+
+	
 	<form action="LogoutServlet" method="POST">
         <input type="submit" value="Logout">
     </form>

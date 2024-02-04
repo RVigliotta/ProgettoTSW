@@ -8,10 +8,12 @@ public class Order {
 	private double totalPrice;
 	private String DateTime;
 	private int userId;
-	private int code;//carrello
-	private List<ProductBean> products;
+	public List<ProductBean> products;
+	private String state;
 	
 	
+
+
 	public Order() {
 		products = new ArrayList<ProductBean>();
 	}
@@ -40,12 +42,12 @@ public class Order {
 		this.userId=userId;
 	}
 	
-	public int getCode() {
-		return code;
+	public String getState() {
+		return state;
 	}
-	
-	public void setCode(int code) {
-		this.code=code;
+
+	public void setState(String state) {
+		this.state = state;
 	}
 	
 	public List<ProductBean> getProducts() {

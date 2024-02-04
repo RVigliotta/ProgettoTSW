@@ -55,7 +55,7 @@ public class OrderServlet extends HttpServlet {
 
 			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 			productDao = new ProductDaoDataSource(ds);
-			CartDao cartDao = new CartDaoDataSource(ds);
+			//CartDao cartDao = new CartDaoDataSource(ds);
 			OrderDao orderDao = new OrderDaoDataSource(ds);
 			
 			LocalDateTime now = LocalDateTime.now();
@@ -67,7 +67,7 @@ public class OrderServlet extends HttpServlet {
 		Order order = (Order) new Order();
 		Cart cart = (Cart)request.getSession().getAttribute("cart");
 		Integer userId = (Integer)request.getSession().getAttribute("userId");
-		Integer pdid = (Integer)request.getSession().getAttribute("productId");
+		//Integer pdid = (Integer)request.getSession().getAttribute("productId");
 		List<ProductBean> OrderCart = cart.getProducts();
 		for(ProductBean orderBean : OrderCart)
 			System.out.println(orderBean.getQuantity());
@@ -81,10 +81,12 @@ public class OrderServlet extends HttpServlet {
 		try {
 			String action = request.getParameter("action");
 			  
-				
+			
+			
+			
 			if (action != null) {
 		        if (action.equalsIgnoreCase("Acquista")) {
-		            orderDao.OrderSave(userId, formattedDateTime, cartJson,pdid);
+		            orderDao.OrderSave(userId, formattedDateTime, cartJson,"In pagamento");
 		            orderDao.CartDelete(userId);
 		            for (ProductBean orderBean : OrderCart) {
 		                int productId = orderBean.getCode(); // Sostituisci con il metodo corretto per ottenere l'ID del prodotto
@@ -115,16 +117,19 @@ public class OrderServlet extends HttpServlet {
 		            // Inoltra alla pagina JSP per visualizzare gli ordini
 		            request.getRequestDispatcher("OrderPage.jsp").forward(request, response);
 		        }
-		    }
+		    }else {request.getRequestDispatcher("OrderView.jsp").forward(request, response);}
 		
 		
 		
-		request.getRequestDispatcher("OrderView.jsp").forward(request, response);
+		
 	
 		} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		}	
+	
+	
+		
 	}
 	
 }
