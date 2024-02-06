@@ -1,8 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <div class="navbar-right">
+	<form action="./" method="POST">
+		<img src="<%=request.getContextPath()%>/icons/home.png" alt="Home">
+		<input type="submit" value="Home">
+	</form>
 	<% if (session.getAttribute("username") != null) { %>
 	<form action="LogoutServlet" method="POST">
 		<img src="<%=request.getContextPath()%>/icons/logout.png" alt="Logout">

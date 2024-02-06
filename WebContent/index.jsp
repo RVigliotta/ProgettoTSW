@@ -4,8 +4,8 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.util.Collection"%>
 <%@ page import="javax.sql.DataSource"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,26 +35,25 @@
 			</div>
 		</div>
 
+		<div class="flexbox-container">
+			<div class="flexbox-container-column">
+				<div class="flexbox-item flexbox-item-1">
+					<img src="<%=request.getContextPath()%>/Images/box1.jpg" alt="box1">
+				</div>
+				<div class="flexbox-item flexbox-item-2">
+					<img src="<%=request.getContextPath()%>/Images/box2.jpg" alt="box2">
+				</div>
+			</div>
+			<div class="flexbox-item flexbox-item-3">
+				<img src="<%=request.getContextPath()%>/Images/box3.jpg" alt="box3">
+			</div>
+		</div>
+
 		<div class=prodotti align="center">
 			<%		IProductDao productDao = null;
 	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 	productDao = new ProductDaoDataSource(ds);
 	Collection<ProductBean> products = productDao.doRetrieveProducts(); %>
-
-			<div class="flexbox-container">
-				<div class="flexbox-container-column">
-					<div class="flexbox-item flexbox-item-1">
-						<img src="<%=request.getContextPath()%>/Images/box1.jpg" alt="box1">
-					</div>
-					<div class="flexbox-item flexbox-item-2">
-						<img src="<%=request.getContextPath()%>/Images/box2.jpg" alt="box2">
-					</div>
-				</div>
-				<div class="flexbox-item flexbox-item-3">
-					<img src="<%=request.getContextPath()%>/Images/box3.jpg" alt="box3">
-				</div>
-			</div>
-
 
 			<h2>Novita' Del Momento</h2>
 
@@ -66,7 +65,7 @@
 						src="<%=request.getContextPath()%>/Images/products/<%= bean.getImage() %>"
 						alt="Immagine" width="100" />
 					<p><%= bean.getName() %></p>
-					<p><%= String.format("%.2f", bean.getPrice()) %></p>
+					<p>&euro;&nbsp;<%= String.format("%.2f", bean.getPrice()) %></p>
 
 					<% if (bean.getQuantity() > 0) { %>
 					<form action="CartServlet" method="POST" class="IndexProduct">

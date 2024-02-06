@@ -18,26 +18,23 @@
 
 <!DOCTYPE html>
 <html>
-<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.Order"%>
+<%@ page contentType="text/html; charset=UTF-8"
+	import="java.util.*,model.Order"%>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="ProductStyle.css" rel="stylesheet" type="text/css">
-	<title>Gestione Ordini</title>
+<meta http-equiv="Content-Type" content="text/html; UTF-8">
+<link href="ProductStyle.css" rel="stylesheet" type="text/css">
+<%@ include file="meta.html"%>
+<%@ include file="header.jsp"%>
+<title>Gestione Ordini</title>
 </head>
 
 <body>
-<form action="index.jsp" method="POST">
-        <input type="submit" value="home">
-        </form>
-
-    <form action="LogoutServlet" method="POST">
-        <input type="submit" value="Logout">
-    </form>
-    
-    
-	<h2>Ordini</h2>
-	<table border="1">
+	<%@ include file="nav.jsp"%>
+	<div class="OrderCTRL">
+	
+	<h2>Ordini effettuati</h2>
+	<table>
 		<tr>
 			<th>CodiceCarrello</th>
 			<th>PrezzoTotale</th>
@@ -61,28 +58,26 @@
 			<td><%=bean.getState()%></td>
 			<td>
 				<form action="OrderControl" method="post">
-           			<input type="hidden" name="driver" value="drivermanager">
-            		<input type="hidden" name="action" value="pdate">
-            		<input type="hidden" name="id" value="<%=bean.getUserId()%>">
-           			<input type="submit" value="Aggiorna">
-        		</form>
-        		<br>
-        		<form action="OrderControl" method="post">
-           			<input type="hidden" name="driver" value="drivermanager">
-            		<input type="hidden" name="action" value="delete">
-           			<input type="hidden" name="id" value="<%=bean.getUserId()%>">
-           			<input type="submit" value="Rimuovi">
-       			</form>
-        	<br>
-        		<form action="OrderControl" method="post">
-           			<input type="hidden" name="driver" value="drivermanager">
-            		<input type="hidden" name="action" value="details">
-            		<input type="hidden" name="id" value="<%=bean.getUserId()%>">
-           			<input type="submit" value="Dettagli">
-        		</form>
-        	
-        		
-   			</td>
+					<input type="hidden" name="driver" value="drivermanager">
+					<input type="hidden" name="action" value="pdate">
+					<input type="hidden" name="id" value="<%=bean.getUserId()%>">
+					<input type="submit" value="Aggiorna" class="OrderCTRL-top">
+				</form> <br>
+				<form action="OrderControl" method="post">
+					<input type="hidden" name="driver" value="drivermanager">
+					<input type="hidden" name="action" value="delete">
+					<input type="hidden" name="id" value="<%=bean.getUserId()%>">
+					<input type="submit" value="Rimuovi" class="OrderCTRL-top">
+				</form> <br>
+				<form action="OrderControl" method="post">
+					<input type="hidden" name="driver" value="drivermanager">
+					<input type="hidden" name="action" value="details">
+					<input type="hidden" name="id" value="<%=bean.getUserId()%>">
+					<input type="submit" value="Dettagli" class="OrderCTRL-top">
+				</form>
+
+
+			</td>
 		</tr>
 		<%
 				}
@@ -95,8 +90,8 @@
 			}
 		%>
 	</table>
-	
-	
+
+
 	<%
 		if (o != null && o.size() != 0) {
 			Iterator<?> it = o.iterator();
@@ -104,9 +99,9 @@
 				Order o1 = (Order) it.next(); 
 	%>
 	<h2>Dettagli</h2>
-	<table border="1">
+	<table>
 		<tr>
-			<th>Codice Utente </th>
+			<th>Codice Utente</th>
 			<th>Prezzo Totale</th>
 			<th>Data</th>
 			<th>Stato</th>
@@ -120,7 +115,8 @@
 	</table>
 	<%
 		}}
-	%><% if (request.getAttribute("existingorder") != null) { 
+	%>
+	<% if (request.getAttribute("existingorder") != null) { 
 	
 		if (existingO != null && existingO.size() != 0) {
 			Iterator<?> it = existingO.iterator();
@@ -128,26 +124,24 @@
 				Order b = (Order) it.next();
 	
 	%>
-    <h2>Aggiornamento ordine</h2>
-    <form action="OrderControl" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="action" value="update">
-        <input type="hidden" name="id" value="<%=b.getUserId()%>">
-        
-        <label for="id">Cambia UtenteCarrello:</label><br> 
-        <input name="id" type="number" min="1" value="1" value="<%=b.getUserId()%>"><br> 
+	<h2>Aggiornamento ordine</h2>
+	<form action="OrderControl" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="action" value="update">
+		<input type="hidden" name="id" value="<%=b.getUserId()%>">
+		<label for="id">Cambia UtenteCarrello:</label><br>
+		<input name="id" type="number" min="1" value="1" value="<%=b.getUserId()%>"><br>
 
-		<label for="totalprice">Prezzo Totale:</label><br> 
-		<input name="totalprice" type="text"  step="0.01" min="0.00" value="<%=b.getTotalPrice() %>" required><br>
-
-		<label for="data">Data:</label><br> 
-		<input name="data" type="number" min="1" value="1" required><br>
-		
-		<label for="state">Stato:</label><br> 
+		<label for="totalprice">Prezzo Totale:</label><br>
+		<input name="totalprice" type="text" step="0.01" min="0.00" value="<%=b.getTotalPrice() %>" required><br>
+		<label for="data">Data:</label><br> <input name="data" type="number" min="1" value="1" required><br>
+		<label for="state">Stato:</label><br>
 		<input name="state" type="text" min="1" value="1" required><br>
-		
-        <input type="submit" value="Aggiorna"><input type="reset" value="Reset"><input type="submit" name="action "value="Annulla"> 
-    </form>
+
+		<input type="submit" value="Aggiorna" class="OrderCTRL-down"><input type="reset" value="Reset" class="OrderCTRL-down"><input type="submit" name="action " value="Annulla" class="OrderCTRL-down">
+	</form>
 
 	<% } } }%>
+	</div>
+	<%@ include file="footer.jsp"%>
 </body>
 </html>

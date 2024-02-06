@@ -10,24 +10,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <%@ include file="meta.html"%>
+    <%@ include file="header.jsp"%>
     <title>Elenco Ordini</title>
 </head>
 <body>
-<div class="navBar" align = "left">
-	<form action="CartServlet" method="post">
-		<input type="submit" value="carrello">
-	</form>
-	<form action="LogoutServlet" method="POST">
-        <input type="submit" value="Logout">
-    </form>
-   	<form action="index.jsp" method="POST">
-        <input type="submit" value="home">
-    </form>
-    <form action="PersonalAreaServlet" method="POST">
-        <input type="submit" value="Area Personale">
-    </form>
-</div>
-    <h1>Elenco Ordini</h1>
+	<%@ include file="nav.jsp"%>
+	<div class="OrderPage">
+    <h2>Elenco Ordini</h2>
     
 
     <% 
@@ -42,7 +32,7 @@
         <table border ="1">
             <tr>
                 
-                <th>Stato: <%= bean.getState()%></th>
+                <th colspan="4">Stato: <%= bean.getState()%></th>
                 
                 <!-- Altre colonne, se necessario -->
             </tr>
@@ -58,10 +48,13 @@
                 
             <% } %>
             <tr>
-            <th>Prezzo Totale: <%= bean.getTotalPrice()%> </th>
-            </td>
+            <th colspan="4">Prezzo Totale: <%= bean.getTotalPrice()%> </th>
 				  </tr>
         </table>
     <% } %>
+    
+    </div>
+    
+    <%@ include file="footer.jsp"%>
 </body>
 </html>
