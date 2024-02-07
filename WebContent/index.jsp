@@ -1,6 +1,4 @@
-<%@ page import="model.IProductDao"%>
-<%@ page import="model.ProductDaoDataSource"%>
-<%@ page import="model.ProductBean"%>
+<%@ page import="model.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.util.Collection"%>
 <%@ page import="javax.sql.DataSource"%>
@@ -11,6 +9,7 @@
 <head>
 <%@ include file="header.jsp"%>
 <%@ include file="meta.html"%>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 	<div class="main-content">
@@ -53,13 +52,21 @@
 			<%		IProductDao productDao = null;
 	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 	productDao = new ProductDaoDataSource(ds);
+	CartDao cd = new CartDaoDataSource(ds);
+	/*Cart cart = (Cart) session.getAttribute("cart");
+	//speriamo
+	if(cart == null){
+		cart = new Cart();
+		request.getSession().setAttribute("cart", cart);
+}*/
+
 	Collection<ProductBean> products = productDao.doRetrieveProducts(); %>
 
 			<h2>Novita' Del Momento</h2>
 
 			<div class="product-container" id="product-container">
 				<% if (products != null && !products.isEmpty()) { %>
-				<% for (ProductBean bean : products) { %>
+				<% for (ProductBean bean : products) {%>
 				<div class="product-item">
 					<img
 						src="<%=request.getContextPath()%>/Images/products/<%= bean.getImage() %>"
@@ -69,13 +76,29 @@
 
 					<% if (bean.getQuantity() > 0) { %>
 					<form action="CartServlet" method="POST" class="IndexProduct">
-						<input type="hidden" name="action" value="addC"> <input
-							type="hidden" name="id" value="<%=bean.getCode()%>"> <input
-							type="hidden" name="quantity" id="quantity_<%=bean.getCode()%>"
-							value="1"> <input type="submit"
+						<input type="hidden" name="action" value="addC"> 
+						<input type="hidden" name="id" id="code" value="<%=bean.getCode()%>"> 
+						<input type="hidden" name="quantity" id="quantity_<%=bean.getCode()%>" value="1"> 
+							<% 
+								
+							if (session.getAttribute("username") != null){
+								int uid = (int) session.getAttribute("userId");
+								int f = cd.quantiSpecifica(uid,bean.getCode());										//if f < bean.getQuantity(){//
+								
+								if(f<bean.getQuantity()){	%>
+							<input type="submit"
+							id="press"
 							value="Aggiungi al carrello">
+							
+							<% }else{ %>
+						<p><b>Quantità nel carrello massima raggiunta</b></p>	
+							<% } %>
+							
+							<% }else{ %>
+						<p><b>Accedi per aggiungere al carrello</b></p>	
+							<% } %>
 					</form>
-					<p>Disponibili: <%=bean.getQuantity() %></p>
+					<p>Disponibili in magazzino: <%=bean.getQuantity() %></p>
 					<% } else { %>
 					<p class="esaurito">Prodotto esaurito</p>
 					<% } %>
@@ -88,5 +111,27 @@
 		</div>
 		</div>
 		<%@ include file="footer.jsp"%>
+		
+				
+		<script>
+		document.getElementById("press").addEventListener("click", al);
+		
+		function al(){
+			
+			 Swal.fire({ 
+	            title: 'Aggiunto',
+	            text: 'Prodotto aggiunto al carrello !', 
+	            icon: 'success', 
+	            confirmButtonText: 'OK'
+	            }).then((result) => {
+	                if (result['isConfirmed']){
+	                	location.reload();
+	                  }
+	                });
+		
+		}
+		</script>
+		
+	
 </body>
 </html>

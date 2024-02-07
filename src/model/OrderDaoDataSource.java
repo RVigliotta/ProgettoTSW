@@ -106,6 +106,7 @@ public class OrderDaoDataSource implements OrderDao{
 	            Order order = new Order();
 	         //   order.setCode(resultSet.getInt("Prodotti_codice"));
 	            order.setUserId(resultSet.getInt("Carrello_Utente_id"));
+	            order.setState(resultSet.getString("Stato"));
 	            order.setDateTime(resultSet.getString("Data"));
 	            order.setTotalPrice(totalPrice);
 	            

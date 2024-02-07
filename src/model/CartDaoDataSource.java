@@ -155,17 +155,52 @@ public class CartDaoDataSource  implements CartDao{
 	    }
 	}
 
+	
+	
+	public int quantiSpecifica(int uid,int pid)throws SQLException {
+		
+		int res=0;
+		  Connection connection = null;
+		    PreparedStatement preparedStatement = null;
+
+		    
+
+		    String ser = "SELECT Quantit FROM " + CartDaoDataSource.TABLE_NAME + " WHERE Utente_id = ? AND Prodotti_codice = ?";
+
+		    try {
+		        connection = ds.getConnection();
+		            preparedStatement = connection.prepareStatement(ser);
+		            preparedStatement.setInt(1, uid);
+		            preparedStatement.setInt(2, pid);
+		            ResultSet resultSet = preparedStatement.executeQuery();
+		            
+		            if(resultSet.next())
+		            	res=resultSet.getInt("Quantit");
+		            
+		    } finally {
+		        try {
+		            if (preparedStatement != null)
+		                preparedStatement.close();
+		        } finally {
+		            if (connection != null)
+		                connection.close();
+		        }
+		    }
+		return res;
+	}
+	
+	
+	
 	@Override
 	public synchronized Collection<ProductBean> doRetrieveProducts(int UID) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		PreparedStatement productStatement=null;
-		List<Integer> PID = new ArrayList<>();
-		
+		HashMap<Integer, Integer> idquant= new HashMap<Integer, Integer>();
 		
 		Collection<ProductBean> products = new LinkedList<ProductBean>();
 
-		String selectPID = "SELECT Prodotti_codice FROM " + CartDaoDataSource.TABLE_NAME +" WHERE Utente_id = ?";
+		String selectPID = "SELECT Prodotti_codice , Quantit FROM " + CartDaoDataSource.TABLE_NAME +" WHERE Utente_id = ?";
 
 
 		try {
@@ -175,8 +210,8 @@ public class CartDaoDataSource  implements CartDao{
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				int ProductID = rs.getInt("Prodotti_codice");
-				PID.add(ProductID);
+				idquant.put(rs.getInt("Prodotti_codice"), rs.getInt("Quantit"));
+			//	PID.add(ProductID);
 			}
 		
 			String PIDinfo = "SELECT p.*, c.Quantit FROM prodotti p JOIN carrello c ON p.codice = c.Prodotti_codice WHERE c.Utente_id = ?";
@@ -194,7 +229,7 @@ public class CartDaoDataSource  implements CartDao{
 			    bean.setPrice(rsProducts.getFloat("prezzo"));
 			    bean.setImage(rsProducts.getString("immagine"));
 			    bean.setDescription(rsProducts.getString("descrizione"));
-			    bean.setQuantity(rsProducts.getInt("Disponibilita"));
+			    bean.setQuantity(idquant.get(bean.getCode()));
 
 			    products.add(bean);
 			}

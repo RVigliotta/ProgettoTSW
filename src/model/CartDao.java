@@ -11,6 +11,8 @@ public interface CartDao {
 	
 	public void cartDelAll(int UID, int PID) throws SQLException;
 	
+	public int quantiSpecifica(int uid,int pid)throws SQLException;
+	
 	public Collection<ProductBean> doRetrieveProducts(int UID) throws SQLException;
 
 }

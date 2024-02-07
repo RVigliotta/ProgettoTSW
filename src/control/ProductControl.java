@@ -51,8 +51,7 @@ public class ProductControl extends HttpServlet {
 	//Non funge :(
 	//String saveDirectory = Paths.get(".").toAbsolutePath().normalize().toString().replace("java\\control\\", "WebContent\\Images\\Products");
 	
-	private static String saveDirectory = "C:\\Users\\Rocco\\OneDrive\\Desktop\\TSW\\eclipse-jee-2023-03-R-win32-x86_64\\ProgettoTSW\\WebContent\\Images\\";
-	
+	private static String saveDirectory = "C:\\Users\\Vinz\\Documents\\GitHub\\ProgettoTSW\\WebContent\\Images\\products";
 	
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

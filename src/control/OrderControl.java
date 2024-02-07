@@ -52,11 +52,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 
 		try {
 			if (action != null) {///AGGIOUNGERE CONTROLLO SU INSERIMENTO ID
-				if (action.equalsIgnoreCase("details")) {
-					int id = Integer.parseInt(request.getParameter("id"));///////
+				
+					int id1 = Integer.parseInt(request.getParameter("id"));///////
 					request.removeAttribute("order");
-					request.setAttribute("order", orderDao.DoRetrieveOrders(id));
-				} else if (action.equalsIgnoreCase("delete")) {
+					request.setAttribute("order", orderDao.DoRetrieveOrders(id1));
+				 if (action.equalsIgnoreCase("delete")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					orderDao.doDelete(id);
 				
