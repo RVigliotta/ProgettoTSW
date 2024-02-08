@@ -51,7 +51,8 @@ public class ProductControl extends HttpServlet {
 	//Non funge :(
 	//String saveDirectory = Paths.get(".").toAbsolutePath().normalize().toString().replace("java\\control\\", "WebContent\\Images\\Products");
 	
-	private static String saveDirectory = "C:\\Users\\Vinz\\Documents\\GitHub\\ProgettoTSW\\WebContent\\Images\\products";
+	private static String saveDirectory = "C:\\apache-tomcat-9.0.73\\webapps\\BlackAndWhite\\Images\\products";
+//Modo peggiore per memorizzare directory per salvare sia ambiente di sviluppo che di produzione 
 	
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -105,11 +106,10 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			       
 			        //modo inutilmente complesso per prendere PWD indipendente da system
 			        //ultima pate rimpiazzata con cartella di destinazione
-			        //Brutto
-			        System.out.println(saveDirectory);			        
+			        //Brutto non funzionantre
+			        		       
 			        String imagePath = saveDirectory + File.separator + image; // Percorso per salvare l'immagine
-					
-					
+			
 			        
 					ProductBean bean = new ProductBean();
 					bean.setCode(id);
@@ -121,6 +121,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					
 					if (imagePart != null && imagePart.getSize() > 0) { //se c'è una nuova immagine la aggiorni
 						imagePart.write(imagePath);
+						
 						bean.setImage(image);
 					}
 					else {
@@ -143,8 +144,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			        String image = getFileName(imagePart); // Ottieni il nome dell'immagine
 			    
 			        String imagePath = saveDirectory + File.separator + image; // Percorso per salvare l'immagine
-					
+			        
 			        imagePart.write(imagePath);
+					
 					
 					ProductBean bean = new ProductBean();
 					bean.setName(name);

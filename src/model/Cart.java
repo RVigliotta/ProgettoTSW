@@ -67,17 +67,7 @@ public class Cart {
  	}
 	
 	
-	public boolean aggiungibile(ProductBean product) {
-		
-		for(ProductBean prod : products) {
-			if(prod.getCode() == product.getCode()) {
-				return product.getQuantity()>prod.getQuantity();
-			}
-		
-		}
-		return false;
-	}
-	
+
 	
 	public void delAll(ProductBean product) {
 		for(ProductBean prod : products) {

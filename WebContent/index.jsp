@@ -53,12 +53,6 @@
 	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 	productDao = new ProductDaoDataSource(ds);
 	CartDao cd = new CartDaoDataSource(ds);
-	/*Cart cart = (Cart) session.getAttribute("cart");
-	//speriamo
-	if(cart == null){
-		cart = new Cart();
-		request.getSession().setAttribute("cart", cart);
-}*/
 
 	Collection<ProductBean> products = productDao.doRetrieveProducts(); %>
 
@@ -87,7 +81,7 @@
 								
 								if(f<bean.getQuantity()){	%>
 							<input type="submit"
-							id="press"
+							class="press"
 							value="Aggiungi al carrello">
 							
 							<% }else{ %>
@@ -113,24 +107,26 @@
 		<%@ include file="footer.jsp"%>
 		
 				
-		<script>
-		document.getElementById("press").addEventListener("click", al);
+		<script>	
+	
+		const boxes = document.querySelectorAll('.press');
+		boxes.forEach(box => {
+  box.addEventListener('click', function al(){
 		
-		function al(){
-			
-			 Swal.fire({ 
-	            title: 'Aggiunto',
-	            text: 'Prodotto aggiunto al carrello !', 
-	            icon: 'success', 
-	            confirmButtonText: 'OK'
-	            }).then((result) => {
-	                if (result['isConfirmed']){
-	                	location.reload();
-	                  }
-	                });
-		
-		}
-		</script>
+		 Swal.fire({ 
+         title: 'Aggiunto',
+         text: 'Prodotto aggiunto al carrello !', 
+         icon: 'success', 
+         confirmButtonText: 'OK'
+         }).then((result) => {
+             if (result['isConfirmed']){
+             	location.reload();
+               }
+             });
+	
+	});
+});
+</script>
 		
 	
 </body>
