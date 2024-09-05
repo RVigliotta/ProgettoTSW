@@ -1,0 +1,7 @@
+.idea/
+venv/
+/.settings/
+/.project
+/desktop.ini
+/.classpath
+/.DS_Store
